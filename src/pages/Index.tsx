@@ -257,17 +257,154 @@ const Index = () => {
 
       {/* About Section */}
       <section id="about" className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-light text-black mb-12">О бренде</h2>
-          <p className="text-lg text-gray-600 leading-relaxed mb-8">
-            THUYA — это философия красоты, воплощённая в каждом продукте. 
-            Мы создаём косметику премиум-класса, используя только лучшие ингредиенты 
-            и инновационные технологии.
-          </p>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            Наша миссия — помочь каждой женщине раскрыть свою уникальную красоту 
-            с помощью продуктов высочайшего качества.
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-black mb-8">О бренде</h2>
+            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+              THUYA — это философия красоты, воплощённая в каждом продукте. 
+              Мы создаём косметику премиум-класса, используя только лучшие ингредиенты 
+              и инновационные технологии.
+            </p>
+          </div>
+
+          {/* Advantages Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="text-center group">
+              <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+                <div className="relative">
+                  {/* Leaf Icon SVG */}
+                  <svg className="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
+                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-medium text-black mb-2">Натуральные ингредиенты</h3>
+              <p className="text-gray-600 text-sm">Только природные компоненты высочайшего качества</p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+                <div className="relative">
+                  {/* Science Icon SVG */}
+                  <svg className="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
+                      d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-medium text-black mb-2">Научные исследования</h3>
+              <p className="text-gray-600 text-sm">Инновационные формулы, проверенные в лабораториях</p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+                <div className="relative">
+                  {/* Award Icon SVG */}
+                  <svg className="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
+                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-medium text-black mb-2">Премиальное качество</h3>
+              <p className="text-gray-600 text-sm">Высочайшие стандарты производства и контроля</p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+                <div className="relative">
+                  {/* Heart Icon SVG */}
+                  <svg className="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-medium text-black mb-2">Индивидуальный подход</h3>
+              <p className="text-gray-600 text-sm">Персональные решения для каждого типа кожи</p>
+            </div>
+          </div>
+
+          {/* Statistics Infographic */}
+          <div className="bg-white rounded-2xl p-8 shadow-lg mb-12">
+            <h3 className="text-2xl font-light text-center text-black mb-12">Наши достижения</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="relative mb-4">
+                  <svg className="w-16 h-16 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f3f4f6" strokeWidth="8"/>
+                    <circle 
+                      cx="50" cy="50" r="40" 
+                      fill="none" 
+                      stroke="#000000" 
+                      strokeWidth="8"
+                      strokeLinecap="round"
+                      strokeDasharray="251.2"
+                      strokeDashoffset="62.8"
+                      transform="rotate(-90 50 50)"
+                    />
+                    <text x="50" y="50" textAnchor="middle" dy="0.3em" fontSize="16" fill="#000" fontWeight="bold">
+                      75%
+                    </text>
+                  </svg>
+                </div>
+                <p className="text-lg font-medium text-black">Натуральные ингредиенты</p>
+                <p className="text-sm text-gray-600">в каждом продукте</p>
+              </div>
+
+              <div className="text-center">
+                <div className="relative mb-4">
+                  <svg className="w-16 h-16 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f3f4f6" strokeWidth="8"/>
+                    <circle 
+                      cx="50" cy="50" r="40" 
+                      fill="none" 
+                      stroke="#000000" 
+                      strokeWidth="8"
+                      strokeLinecap="round"
+                      strokeDasharray="251.2"
+                      strokeDashoffset="25.12"
+                      transform="rotate(-90 50 50)"
+                    />
+                    <text x="50" y="50" textAnchor="middle" dy="0.3em" fontSize="16" fill="#000" fontWeight="bold">
+                      90%
+                    </text>
+                  </svg>
+                </div>
+                <p className="text-lg font-medium text-black">Довольных клиентов</p>
+                <p className="text-sm text-gray-600">рекомендуют нас</p>
+              </div>
+
+              <div className="text-center">
+                <div className="text-3xl font-bold text-black mb-2">24ч</div>
+                <p className="text-lg font-medium text-black">Стойкость</p>
+                <p className="text-sm text-gray-600">наших продуктов</p>
+              </div>
+
+              <div className="text-center">
+                <div className="text-3xl font-bold text-black mb-2">100+</div>
+                <p className="text-lg font-medium text-black">Оттенков</p>
+                <p className="text-sm text-gray-600">в нашей палитре</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Mission Statement & CTA */}
+          <div className="text-center">
+            <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">
+              Наша миссия — помочь каждой женщине раскрыть свою уникальную красоту 
+              с помощью продуктов высочайшего качества.
+            </p>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-black text-black hover:bg-black hover:text-white px-8"
+            >
+              <Icon name="MessageCircle" size={20} className="mr-2" />
+              Задать вопрос
+            </Button>
+          </div>
         </div>
       </section>
 
