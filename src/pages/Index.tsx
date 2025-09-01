@@ -1,15 +1,45 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import { useState } from 'react';
 
 const Index = () => {
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [currentSlides, setCurrentSlides] = useState<{[key: number]: number}>({});
+
+  const toggleFavorite = (id: number) => {
+    setFavorites(prev => 
+      prev.includes(id) ? prev.filter(fav => fav !== id) : [...prev, id]
+    );
+  };
+
+  const nextSlide = (productId: number, totalImages: number) => {
+    setCurrentSlides(prev => ({
+      ...prev,
+      [productId]: ((prev[productId] || 0) + 1) % totalImages
+    }));
+  };
+
+  const prevSlide = (productId: number, totalImages: number) => {
+    setCurrentSlides(prev => ({
+      ...prev,
+      [productId]: ((prev[productId] || 0) - 1 + totalImages) % totalImages
+    }));
+  };
+
   const products = [
     {
       id: 1,
       name: 'Velvet Lipstick',
       price: '2990 ₽',
-      image: '/img/1577b017-6d47-4e9c-acf2-dd40e24e62e4.jpg',
+      oldPrice: '3490 ₽',
+      discount: '15%',
+      images: [
+        '/img/1577b017-6d47-4e9c-acf2-dd40e24e62e4.jpg',
+        '/img/df8f7fd5-12ac-4c3b-8e9b-085becccc87f.jpg'
+      ],
       description: 'Роскошная помада с бархатной текстурой',
       features: ['Длительная стойкость', 'Интенсивный цвет', 'Увлажняющая формула']
     },
@@ -17,7 +47,12 @@ const Index = () => {
       id: 2,
       name: 'Premium Mascara',
       price: '2490 ₽',
-      image: '/img/12ecba04-277f-4c24-845b-a8bab30d1359.jpg',
+      oldPrice: '2990 ₽',
+      discount: '17%',
+      images: [
+        '/img/12ecba04-277f-4c24-845b-a8bab30d1359.jpg',
+        '/img/a7443181-623a-4c97-8fa4-fca7e05a870a.jpg'
+      ],
       description: 'Тушь для объёма и длины ресниц',
       features: ['Объём до 300%', 'Водостойкая формула', 'Гипоаллергенно']
     },
@@ -25,9 +60,26 @@ const Index = () => {
       id: 3,
       name: 'Luxury Foundation',
       price: '3490 ₽',
-      image: '/img/b0a46e45-f347-4c81-a223-714b58f30d9f.jpg',
+      oldPrice: '3990 ₽',
+      discount: '12%',
+      images: [
+        '/img/b0a46e45-f347-4c81-a223-714b58f30d9f.jpg',
+        '/img/b0867240-3564-44bf-b402-5e24e745f716.jpg'
+      ],
       description: 'Тональная основа премиум-класса',
       features: ['Полное покрытие', 'SPF 30', '24-часовая стойкость']
+    },
+    {
+      id: 4,
+      name: 'Eyeshadow Palette',
+      price: '4490 ₽',
+      oldPrice: '5290 ₽',
+      discount: '20%',
+      images: [
+        '/img/3a4bbf2e-9b46-49d7-93e0-bf030f5853e0.jpg'
+      ],
+      description: 'Профессиональная палетка теней',
+      features: ['12 оттенков', 'Высокая пигментация', 'Стойкость 16 часов']
     }
   ];
 
@@ -93,33 +145,109 @@ const Index = () => {
       <section id="catalog" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-light text-center text-black mb-16">Каталог</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {products.map((product) => (
-              <Card key={product.id} className="border border-gray-200 hover:shadow-lg transition-all duration-300">
-                <div className="aspect-square overflow-hidden">
-                  <img 
-                    src={product.image} 
-                    alt={product.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
+              <Card key={product.id} className="border border-gray-200 hover:shadow-lg transition-all duration-300 group">
+                <div className="relative">
+                  {/* Discount Badge */}
+                  <Badge className="absolute top-3 left-3 z-10 bg-black text-white">
+                    -{product.discount}
+                  </Badge>
+                  
+                  {/* Favorite Button */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="absolute top-3 right-3 z-10 p-2 bg-white/80 hover:bg-white rounded-full"
+                    onClick={() => toggleFavorite(product.id)}
+                  >
+                    <Icon 
+                      name="Heart" 
+                      size={18}
+                      className={`transition-colors ${
+                        favorites.includes(product.id) 
+                          ? 'text-red-500 fill-current' 
+                          : 'text-gray-600'
+                      }`}
+                    />
+                  </Button>
+
+                  {/* Image Slider */}
+                  <div className="aspect-square overflow-hidden relative">
+                    <img 
+                      src={product.images[currentSlides[product.id] || 0]} 
+                      alt={product.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    
+                    {product.images.length > 1 && (
+                      <>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="absolute left-2 top-1/2 -translate-y-1/2 p-1 bg-black/50 hover:bg-black/70 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          onClick={() => prevSlide(product.id, product.images.length)}
+                        >
+                          <Icon name="ChevronLeft" size={16} />
+                        </Button>
+                        
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="absolute right-2 top-1/2 -translate-y-1/2 p-1 bg-black/50 hover:bg-black/70 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          onClick={() => nextSlide(product.id, product.images.length)}
+                        >
+                          <Icon name="ChevronRight" size={16} />
+                        </Button>
+
+                        {/* Dots Indicator */}
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1">
+                          {product.images.map((_, index) => (
+                            <div
+                              key={index}
+                              className={`w-2 h-2 rounded-full transition-colors ${
+                                index === (currentSlides[product.id] || 0)
+                                  ? 'bg-white'
+                                  : 'bg-white/50'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
-                <CardHeader>
-                  <CardTitle className="text-xl font-light text-black">{product.name}</CardTitle>
-                  <p className="text-2xl font-bold text-black">{product.price}</p>
+
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg font-light text-black line-clamp-1">
+                    {product.name}
+                  </CardTitle>
+                  <div className="flex items-center gap-2">
+                    <p className="text-xl font-bold text-black">{product.price}</p>
+                    <p className="text-sm text-gray-400 line-through">{product.oldPrice}</p>
+                  </div>
                 </CardHeader>
+
                 <CardContent className="space-y-4">
-                  <p className="text-gray-600">{product.description}</p>
-                  <div className="space-y-2">
-                    {product.features.map((feature, index) => (
-                      <div key={index} className="flex items-center text-sm text-gray-600">
-                        <Icon name="Check" size={16} className="mr-2 text-black" />
-                        {feature}
+                  <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
+                  
+                  <div className="space-y-1">
+                    {product.features.slice(0, 2).map((feature, index) => (
+                      <div key={index} className="flex items-center text-xs text-gray-600">
+                        <Icon name="Check" size={12} className="mr-1 text-black flex-shrink-0" />
+                        <span className="line-clamp-1">{feature}</span>
                       </div>
                     ))}
                   </div>
-                  <Button className="w-full bg-black text-white hover:bg-gray-800">
-                    В корзину
-                  </Button>
+
+                  <div className="flex gap-2 pt-2">
+                    <Button variant="outline" size="sm" className="flex-1 border-black text-black hover:bg-gray-50">
+                      Подробнее
+                    </Button>
+                    <Button size="sm" className="flex-1 bg-black text-white hover:bg-gray-800">
+                      В корзину
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
